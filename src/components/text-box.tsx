@@ -9,8 +9,6 @@ const TextBox = () => {
 
     React.useEffect(() => {
         window.addEventListener('input', handleTextBoxValueChange);
-
-        // cleanup this component
         return () => {
             window.removeEventListener('input', handleTextBoxValueChange);
         };

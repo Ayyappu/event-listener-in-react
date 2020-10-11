@@ -10,12 +10,6 @@ localStorage.setItem = function(key, value) {
   document.dispatchEvent(event);
   originalSetItem.apply(this, arguments);
 };
-var localStorageSetHandler = function(e: any) {
-  console.log(1);
-  // setTextBoxValue(e.value);
-  console.log(e.value);
-};
-document.addEventListener("itemInserted", localStorageSetHandler, false);
 
 const App = () => {
   const [currentKey, setCurrentKey] = React.useState(0);  
