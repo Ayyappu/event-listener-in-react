@@ -5,9 +5,10 @@ const DisplayStorage = () => {
     const [textBoxValue, setTextBoxValue] = React.useState("");
     
     var localStorageSetHandler = function(e: any) {
-        console.log(1);
-        setTextBoxValue(e.value);
-        console.log(e.value);
+        if (e.key === 'textboxvalue') {
+            setTextBoxValue(e.value);
+            console.log(e.value);
+        }        
       };      
 
     React.useEffect(() => {
