@@ -1,18 +1,31 @@
 import React from 'react';
+import TextBox from './components/text-box';
 import './App.css';
 
-const App = () => {
+var originalSetItem: any = localStorage.setItem;
+localStorage.setItem = function(key, value) {
+  var event: any = new Event('itemInserted');
+  event.value = value; // Optional..
+  event.key = key; // Optional..
+  document.dispatchEvent(event);
+  originalSetItem.apply(this, arguments);
+};
+var localStorageSetHandler = function(e: any) {
+  console.log(1);
+  // setTextBoxValue(e.value);
+  console.log(e.value);
+};
+document.addEventListener("itemInserted", localStorageSetHandler, false);
 
-  const [currentKey, setCurrentKey] = React.useState(0);
+const App = () => {
+  const [currentKey, setCurrentKey] = React.useState(0);  
 
   const handleKeyDown = (event: any) => {
     setCurrentKey(event.keyCode);
   };
-
+  
   React.useEffect(() => {
     window.addEventListener('keydown', handleKeyDown);
-
-    // cleanup this component
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
@@ -20,7 +33,9 @@ const App = () => {
 
   return (
     <div className='container'>
-      {currentKey}      
+      {currentKey}
+      <br/>
+      <TextBox />      
     </div>
   );
 };
